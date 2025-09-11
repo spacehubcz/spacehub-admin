@@ -1,0 +1,6 @@
+Jak přidat parkovací stání/místo?
+=================================
+- Přihlaste se (nebo se zaregistrujte) do aplikace nebo na weboré stránkz S P A C E H U B
+- v hlavním menu vyberte Moje místa
+- klikněte na tlačítko přidat
+- otevře se formulář, kde zadejte pokud možno co nejvíce údajů

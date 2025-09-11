@@ -1,0 +1,28 @@
+DRIVER
+===============================================
+Potřebujete zaparkovat? Zkuste soukromé parkovací stání!
+
+Jak zaparkovat?
+---------------------------
+1.)		Přijeďte co nejblíže místu, kde by jste chtěl parkovat.
+
+2.)		Otevřete aplikaci S P A C E H U B
+
+3.)		Na hlavní obrazovce se objeví nejbližší parkovací lokace (název místa, ulice)
+
+4.)		Zadejte na jak dlouho chcete parkovat, nebo do kdy chcete parkovat
+
+5.)		Po zadání času, se zaobrazí výsledek vyhledávání místa, zda je k dispozici
+
+6.)		Pokud je místo k dispozici, zaplaťte poplatek
+
+7.) 	Po úspěšném zaplacení, se zobrazí na mapce parkovací místo + foto + popis a nejbližší adresa
+
+8.)		Vyhledejte nabídnuté místo a zaparkujte
+
+9.)		Hezký pobyt!
+
+
+POZOR!!! Dodržujte zaplacenou dobu parkování. Po uplynutí této doby, je místo nabízené dalším zájemcům.
+V případě že si chcete parkování prodloužit, je nutné ho zaplatit těsně před uplynutím zaplacené doby.
+Nedovolené parkování je stání na cizím pozemku a majitel může incident řešit přes polici.

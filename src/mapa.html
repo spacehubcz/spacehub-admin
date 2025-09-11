@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>Simple map in Leaflet</title>
+    <meta name="viewport" content="initial-scale=1,maximum-scale=1,user-scalable=no" />
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.2/dist/leaflet.css" integrity="sha256-sA+zWATbFveLLNqWO2gtiw3HL/lh1giY/Inf1BJ0z14=" crossorigin="" />
+	<style>
+		body {
+  margin: 0;
+  padding: 0;
+}
+
+#map {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  width: 100%;
+}
+	</style>
+    <script src="https://unpkg.com/leaflet@1.9.2/dist/leaflet.js" integrity="sha256-o9N1jGDZrf5tS+Ft4gbIK7mYMipq9lqpVJ91xHSyKhg=" crossorigin=""></script>
+  </head>
+  <body>
+    <div id="map"></div>
+  </body>
+  <script>
+	// replace with your own API key
+const API_KEY = 'fkCf-F6Pxf7bjiTKHIDo5k9i2xEBjUNSgvzaDeQck50';
+
+/*
+We create the map and set its initial coordinates and zoom.
+See https://leafletjs.com/reference.html#map
+*/
+const map = L.map('map').setView([49.8729317, 14.8981184], 16);
+
+/*
+Then we add a raster tile layer with REST API Mapy.cz tiles
+See https://leafletjs.com/reference.html#tilelayer
+*/
+L.tileLayer(`https://api.mapy.cz/v1/maptiles/basic/256/{z}/{x}/{y}?apikey=${API_KEY}`, {
+	minZoom: 0,
+	maxZoom: 19,
+	attribution: '<a href="https://api.mapy.cz/copyright" target="_blank">&copy; Seznam.cz a.s. a další</a>',
+}).addTo(map);
+
+/*
+We also require you to include our logo somewhere over the map.
+We create our own map control implementing a documented interface,
+that shows a clickable logo.
+See https://leafletjs.com/reference.html#control
+*/
+const LogoControl = L.Control.extend({
+	options: {
+	position: 'bottomleft',
+	},
+
+	onAdd: function (map) {
+		const container = L.DomUtil.create('div');
+		const link = L.DomUtil.create('a', '', container);
+
+		link.setAttribute('href', 'http://mapy.cz/');
+		link.setAttribute('target', '_blank');
+		link.innerHTML = '<img src="https://api.mapy.cz/img/api/logo.svg" />';
+		L.DomEvent.disableClickPropagation(link);
+
+		return container;
+	},
+});
+new LogoControl().addTo(map);
+
+// finally we add our LogoControl to the map
+var marker = L.marker([49.8729317, 14.8981184]).addTo(map);
+
+var circle = L.circle([49.8729317, 14.8991184], {
+    color: 'red',
+    fillColor: '#f03',
+    fillOpacity: 0.5,
+    radius: 100
+}).addTo(map);
+marker.bindPopup("<b>Hello world!</b><br>I am a popup.").openPopup(); // rovnou se ukazuje
+circle.bindPopup("I am a circle.");	// je schovany, otevre se po kliknuti
+
+</script>
+</html>

@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html>
+<head>
+<script>
+/* Kalkulace souzadnic z mapy.cz url. Ty jsou kodovane do 64 znaku. */
+
+/* JAK TO FUNGUJE
+
+Absolutni souradnice jsou kodovane pres celou zemekouli
+zacatek je	[n0000] to je -180°
+nulty polednik je [90000]
+konec je 	[.....] to je 180°
+
+Diference se zadavaji v promenne delce znaku:
+
+---------- 2 znakove ------------
+prvni je	[00] = -100 m
+posledni je [-.] = 100 m
+---------- 3 znakove ------------
+prvni je	[100] = -3192 m <131072>
+posledni je [m..] = 3192 m	<196607>
+cely rozsah je 65536
+polovina rozsahu je 32768
+
+*/
+
+
+function calculNum(s)
+{
+	const ns = "0ABCD2EFGH4IJKLMN6OPQRST8UVWXYZ-1abcd3efgh5ijklmn7opqrst9uvwxyz.";
+	var n = 0;
+	while (s.length)
+	{
+		n *= 64;
+		let c = s[0];
+		let i = ns.indexOf(c);
+		if (i >= 0)	n += i;	
+		s = s.substring(1);
+	}
+	return n;
+}
+
+/* Vypocet kolik stupnu je na jednu jednotku
+
+	180 deg		 -180 deg
+	[.....]		 [n0000]
+	1073741823 - 805306368 = 268435455
+
+	nula = nulty polednik, nebo rovnik je polovina rozsahu [n0000] az [.....]
+	to je [90000] a prevedeno na cislo je
+	939524096
+*/
+const DegPer1Num = 360 / 268435455;	// stupne na jednu jednotku
+const ZeroXY = 939524096;
+var BaseX = 0;
+var BaseY = 0;
+
+function xyPos(s, d)
+{
+	let n = calculNum(s);
+	return (n - ZeroXY) * DegPer1Num / d;
+}
+function xyDif(s, d)
+{
+	let n = calculNum(s);
+	// 2 character difference
+	if (s.length == 2) return (n-1024) * DegPer1Num / d;
+	// 3 character difference
+	return (n - (131072 + 32768)) * DegPer1Num / d;
+}
+
+const calculate = () => {
+		let u = url.value;
+		let i = u.indexOf("&rm=")+4;
+		BaseX = xyPos(u.substring(i, i+5), 1);
+		BaseY = xyPos(u.substring(i+5, i+5+5), 2);
+		gps.value = BaseY + 'N, ' + BaseX + 'E';
+		btnOpenMap.disabled = false;
+}
+const calculOneNum = () => {
+	res4.value = calculNum(inp4.value);
+}
+const openMap = () => {
+	let url = 'https://mapy.cz/zakladni?source=coor&id=';
+	url += BaseX + '%2C' + BaseY + '&x=' + BaseX + '&y=' + BaseY + '&z=19';
+	window.open(url);
+}
+</script>
+</head>
+<body>
+	<input type="text" name="url" id="url" size="128" value="https://mapy.cz/zakladni?mereni-vzdalenosti&rm=9mX5oxTzEMNR6jLdRhCXRvHiFBMwLIOxNBOPQqW9Jl6TIa&x=16.6800664&y=49.2137622&z=19"/><br>
+	<button onclick="calculate()">Calculate</button><br>
+	<input type="text" id="gps" size="40"/><button id="btnOpenMap" onclick="openMap()" disabled>Open Map</button><br><br>
+	<input type="text" id="inp4" /><button onclick="calculOneNum()">Calculate this number</button><input type="text" id="res4" /><br>
+</body>
+</html>

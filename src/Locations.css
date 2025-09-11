@@ -1,0 +1,242 @@
+.loc-body {
+	height: 100%;
+	overflow: auto;
+	position: relative;
+}
+.loc-tab {
+	border-collapse: separate;
+	border-spacing: 0 5px;
+}
+.loc-tab th {
+	font-size: 100%;
+	border: 0px solid blue;
+	padding: 4px;
+	font-weight: 700;
+	background-color: rgb(131, 190, 248);
+	position: sticky;
+	color: rgb(6, 72, 148);
+	top: 0;
+	cursor: pointer;
+}
+.loc-tab td {
+	border-bottom: 1px solid rgb(0, 179, 255);
+	padding-right: 15px;
+}
+___________________________________location__________{x:0;}
+
+.loc-row {
+	background-color: rgb(0, 81, 174);
+	text-align: left;
+}
+.loc-row:hover {
+	background-color: rgb(27, 130, 245);
+}
+.loc-row :nth-child(n+5)
+{
+	text-align: center;
+	padding-right: 0px;
+}
+.loc-row-big-nr {
+	font-size: 100%;
+	font-weight: bold;
+	border-radius: 6px;
+	padding: 1px;
+	margin: 1px 0px 1px 5px;
+	background-color: rgb(0, 18, 215);
+	text-align: center;
+	cursor: pointer;
+}
+.loc-row-bold {
+	font-weight: bold;
+}
+.loc-tab .loc-row-id {
+	font-size: 88%;
+	text-align: right;
+	padding-right: 10px;
+	color:rgb(109, 211, 255);
+	min-width: 42px;
+}
+.loc-row-img {
+	width:25px;
+	height: auto;
+	cursor: pointer;
+}
+.loc-row-usr {
+	border-radius: 20px;
+	display: inline-block;
+	min-width: 3vh;
+	font-weight: bold;
+	cursor: pointer;
+	text-align: center;
+}
+.loc-row-usr:hover {
+	background-color: rgb(2, 73, 155);
+}
+.loc-row-usr-active {
+	border: 1px solid rgb(115, 200, 253);
+	border-radius: 20px;
+	display: inline-block;
+	min-width: 3vh;
+	color: rgb(255, 252, 67);
+	font-weight: bold;
+	cursor: default;
+	text-align: center;
+}
+.loc-row-usr-inactive {
+	border-radius: 20px;
+	display: inline-block;
+	min-width: 3vh;
+	text-align: center;
+}
+.loc-row-chb {
+	pointer-events: none;
+}
+____________________________________location-users______{x:0;}
+.loc-usr-container>td {
+	border-bottom: 0;
+	padding-right: 0;
+}
+.loc-usr-tab {
+	border-collapse: collapse;
+	width: 100%;
+}
+.loc-usr-tab th{
+	font-size: 72%;
+	padding: 0 6px;
+	background-color: rgb(157, 157, 197);
+	border: 1px solid rgb(157, 157, 197);
+}
+.loc-usr-tab td {
+	text-align: left;
+	font-size: 80%;
+}
+.loc-usr-row {
+	border: 1px solid rgb(157, 157, 197);
+}
+.loc-usr-row td:nth-child(5) {
+	font-weight: bold;
+	color: rgb(255, 255, 0);
+	text-align: right;
+	width: 30px;
+}
+_____________________________________location_detail{x:0;}
+.loc-det-cap {
+	font-size: 150%;
+	font-weight: bold;
+	text-align: center;
+	margin: 10px;
+}
+.loc-det-tab {
+	border-collapse: separate;
+	border-spacing: 0 0px;
+	padding: 6px 16px;
+}
+.loc-det-tab td:first-child {
+	text-align: right;
+	padding-right: 8px;
+	font-size: 70%;
+}
+.loc-det-tab td:nth-child(2) {
+	text-align: left;
+}
+.loc-det-tab input[name='NAME'] {
+	font-weight: bold;
+}
+.loc-det-tab input[type='text'], .loc-det-tab textarea {
+	padding: 5px 6px;
+	border: 1px solid #000;
+	border-radius: 4px;
+	font-size: 100%;
+	max-width: 300px;
+}
+.loc-det-img {
+	max-width: 400px;
+}
+#saveBut:hover {
+	background-color: rgb(16, 180, 38);
+}
+#saveAsBut:hover {
+	background-color: rgb(228, 13, 13);
+}
+.detailTab tr:last-child td {
+	text-align: center;
+}
+.loc-det-crecha {
+	font-size: 80%;
+	background-color: rgb(192, 192, 192);
+	color: black;
+	padding: 2px 5px;
+	border: 1px solid black;
+	border-radius: 4px;
+}
+.loc-det-tab button {
+	margin: 8px 8px 0px 20px;
+	padding: 6px 30px;
+	border: 1px solid #000;
+	border-radius: 4px;
+	font-size: 120%;
+	font-weight: bold;
+	color: white;
+	background-color: rgb(0, 105, 225);
+}
+#saveBut:hover {
+	background-color: rgb(16, 180, 38);
+}
+#saveAsBut:hover {
+	background-color: rgb(228, 13, 13);
+}
+.loc-det-tab tr:last-child td {
+	text-align: center;
+	padding: 10px 0;
+}
+.loc-det-tab textarea {
+	width: 309px;
+}
+
+_____________________________________________locatoin_statistics_and_filter_____{x:0;}
+.loc-stat-div {
+	padding: 5px;
+}
+.loc-stat-tab {
+	border-spacing: 4px;
+	width: 100%;
+}
+.loc-stat-tab th {
+	background-color: rgb(12, 125, 212);
+	border-radius: 4px;
+	padding: 6px 10px;
+	font-size: 80%;
+}
+.loc-stat-stat td {
+	color:rgb(177, 207, 255);
+	font-size: 90%;
+}
+.loc-stat-stat td:first-child {
+	text-align: left;
+}
+.loc-stat-stat td:last-child {
+	text-align: right;
+}
+.loc-stat-fltr .loc-stat-fltr_cap {
+	font-size: 80%;
+	font-weight: bold;
+	text-align: left;
+	color: white;
+}
+.loc-stat-view td {
+	padding: 6px;
+	text-align: center;
+	color: rgb(177, 207, 255);
+	font-size: 80%;
+	white-space: nowrap;
+	background-color: #00429e;
+	border-radius: 5px;
+	cursor: pointer;
+}
+.loc-stat-view .loc-stat-view-selected {
+	background-color: rgb(86, 170, 254);
+	border: 1px solid white;
+	border-radius: 5px;
+	color: black;
+}
+

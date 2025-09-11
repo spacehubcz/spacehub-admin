@@ -1,0 +1,37 @@
+OWNER
+===============================================
+Vlastníte parkovací stání a bývá nevyužité? Vydělávejte na něm.
+
+Jak na to?
+---------------------------
+1.)		Otevřete si webové stránky www.spacehub.cz, nebo
+
+2.)		Otevřete aplikaci S P A C E H U B
+
+3.)		Zaregistrujte se. Pro nabízející je registrace povinná. Jak se zaregistrovat? Viz níže.
+
+4.)		Po úspěšné registraci přejděte na moje místa (položka hlavního menu)
+
+5.)		Přidejte parkovací místo/stání (help: jak přidat parkovací stání?)
+
+6.)		Pro toto parkovací místo přidejte nabídku kde zadáte od kdy do kdy bude parkovací místo k dispozici.
+
+7.) 	Nyní je vaše parkovací místo k dispozici pro řidiče, kteří nemají kde zaparkovat.
+
+Jak se zaregistrovat
+--------------------
+
+
+Podmínky nabízení parkovacího stání/místa.
+------------------------------------------
+Je nutno zadat přesné GPS souřadnice parkovacího místa (střed). To lze jednoduše udělat tak, že se postavíte
+doprostřed místa a uložite údaje v aplikaci SPACEHUB.
+
+Výhody SPACEHUB a jak to funguje
+--------------------------------
+SPACEHUB nabízí výdělek bez námahy.
+SPACEHUB chrání veše soukromí - aplikace neukazuje které parkovací místa jsou volné, dokud řidič nezaplatí.
+Po zaplacení místa, se řidiči nabídne jen jedno místo. Ostatní volné místa nejsou zobrazená. Tento mechanizmus
+zabezpačuje, že nikdo nemůže sledovat která místa jsou volná, alias zda je majitel doma, či nikoliv.
+Volná místa se nabízí náhodně. Pokud je více volných míst poblíž, nabídne se řidiči jedno z nich náhodným 
+výběrem. Ukáže se jen toto jedno místo a to až po zaplacení.

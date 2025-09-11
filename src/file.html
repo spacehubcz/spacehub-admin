@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<style>
+		table td:first-child {
+			text-align: right;
+		}
+	</style>
+</head>
+<body>
+
+<form action="../APIv01/set_spacei.php" method="post" enctype="multipart/form-data">
+	<table>
+  		<tr><td>Select image to upload</td><td><input type="file" name="uploadedFile"></td></tr>
+  		<tr><td>ID</td><td><input type="number" name="ID" value="22"></td></tr>
+  		<tr><td>ID_OWNER (if ID==0)</td><td><input type="number" name="ID_OWNER" value="354"></td></tr>
+  		<tr><td>ID_LOCATION (if ID==0)</td><td><input type="number" name="ID_LOCATION" value="354"></td></tr>
+		<tr><td>NAME</td><td><input type="text" name="NAME" value="RazDva Tri"></td></tr>
+		<tr><td>WIDTH</td><td><input type="number" name="WIDTH" value="900"></td></tr>
+		<tr><td>LENGTH</td><td><input type="number" name="LENGTH" value="450"></td></tr>
+		<tr><td>HEIGHT</td><td><input type="number" name="HEIGHT" value="1000"></td></tr>
+		<tr><td>ACCESS</td><td><input type="number" name="ACCESS" value="1"></td></tr>
+		<tr><td>PARCEL_NR</td><td><input type="text" name="PARCEL_NR" value="12841/963"></td></tr>
+		<tr><td>CITY</td><td><input type="text" name="CITY" value="Honolulu"></td></tr>
+		<tr><td>STREET</td><td><input type="text" name="STREET" value="Krasna"></td></tr>
+  		<tr><td>STREET_NR</td><td><input type="text" name="STREET_NR" value="2311/18"></td></tr>
+  		<tr><td>COMMENT</td><td><input type="text" name="COMMENT" value="Takove krasne misto na havaji"></td></tr>
+  		<tr><td></td><td><input type="submit" value="Upload Image" name="submit"></td></tr>
+</table>
+</form>
+
+</body>
+</html>

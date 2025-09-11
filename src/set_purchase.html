@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<style>
+		table td:first-child {
+			text-align: right;
+		}
+	</style>
+</head>
+<script>
+	function senddata()
+	{
+		var object = {};
+		const formData = new FormData(document.getElementById("formular"));
+		formData.forEach((value, key) => object[key] = value);
+		console.log(JSON.stringify(object));
+		fetch('../APIv01/set_purchase.php', {
+			method: 'POST',
+			headers: {'Content-Type': 'application/json'},
+			body: JSON.stringify(object)
+		})
+		.then(response => response.text())
+		.then(txt => document.getElementById("result").innerHTML = txt)
+		.catch(error => console.error("Error occured: " + error));
+	}
+</script>
+<body>
+
+<form id="formular" action="javascript:void(0);">
+<table>
+	<tr><td>LOCATION ID</td><td><input type="number" name="locid" value="7"></td></tr>
+	<tr><td>DURATION</td><td><input type="number" name="dur" value="4"></td></tr>
+	<tr><td>LONGITUDE</td><td><input type="number" name="lon" value="16.123456"></td></tr>
+	<tr><td>LATITUDE</td><td><input type="number" name="lat" value="50.123456"></td></tr>
+	<tr><td>USER</td><td><input type="datetime" name="user" value="1"></td></tr>
+	<tr><td>PAID</td><td><input type="number" name="paid" value="25.6"></td></tr>
+	<tr><td>PAY REFERENCE</td><td><input type="text" name="payref" value="258715639852"></td></tr>
+	<tr><td></td><td><button onclick="senddata()">go</button></td></tr>
+</table>
+</form>
+<p id="result"></p>
+
+</body>
+</html>

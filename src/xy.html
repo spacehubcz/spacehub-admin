@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+<head>
+</head>
+<body>
+	<div id="vysledek"></div>
+</body>
+<script>
+/* Toto je podle https://people.fsv.cvut.cz/~soukup/dip/jezek/kap6.html
+
+	BOHUZEL TO NEFUNGUJE!!!
+*/
+	var JTSK = {X:1159260.04, Y: 592765.99}
+ 	var kuzpol = {X: 0, Y: 0}
+	kuzpol.X=Math.sqrt(JTSK.X^2+JTSK.Y^2)  //ro
+ 	kuzpol.Y=Math.atan(JTSK.Y/JTSK.X)      //eps
+// ro, eps => sirku, delku
+ 	var n=0.97992470462
+	var ro0=1298039.00462
+ 	var v=Math.tan((78.5/2+45)*Math.PI/180)
+	var t=ro0/kuzpol.X
+	var u=t^(1/n)
+ 	var kart = {X: 0, Y: 0}
+ 	kart.X=2*(Math.atan(v*u)-(45*Math.PI/180)) //sirka
+ 	kart.Y=kuzpol.Y/n                //delka
+// sirka, delka => U,V
+ 	var Uk= 59.7118602500*Math.PI/180
+ 	var Vk= 42.5253936806*Math.PI/180
+ 	var koule = {X: 0, Y: 0}
+ 	koule.X=Math.asin(Math.sin(kart.X)*Math.sin(Uk)-Math.cos(kart.X)*Math.cos(Uk)*Math.cos(kart.Y))//U
+ 	koule.Y=Vk-Math.asin(Math.cos(kart.X)*Math.sin(kart.Y)/Math.cos(koule.X))            //V
+// U,V=> fi, lambda
+ 	var alfa= 1.000597498372
+	var u0=49.4599572917
+	var fi0=49.5
+ 	var du=(koule.X*180/Math.PI)-u0
+ 	var Bessel = {X: 0, Y: 0}
+ 	Bessel.X=fi0+1.001416022789*du-86.87150417/10^6*du^2+16.70197/10^(8)*du^3+117.5089/10^10*du^4  //fi
+  	Bessel.Y=((koule.Y*180/Math.PI)/alfa)   //lambda
+ 	vysledek.innerHTML = JSON.stringify(Bessel);
+</script>
+</html>

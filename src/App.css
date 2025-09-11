@@ -1,0 +1,77 @@
+.admin-all {
+	display: flex;
+	flex-direction: column;
+	min-height: 100vh;
+	max-height: 100vh;
+	background-color: #015;
+	color: white;
+}
+.admin-header {
+  padding: 2vh;
+  text-align: center;
+  font-size: 120%;
+  border-bottom: 1px solid rgb(172, 212, 253);
+}
+.admin-content {
+	position: relative;
+	flex-grow: 1;
+  	display: flex;
+	overflow-y: hidden;
+}
+.admin-menu div {
+	font-weight: bold;
+	border: 1px solid rgb(172, 212, 253);
+	padding: 8px;
+	margin: 6px;
+	cursor: pointer;
+}
+.admin-menu div:hover {
+	background-color: rgb(0, 125, 255);
+}
+.admin-area {
+	flex-grow: 1;
+
+}
+.admin-detail {
+	align-items: left;
+}
+#admin-footer {
+	font-size: 60%;
+	background-color: blue;
+}
+/* ---------------------------------- statistics ---------------------------------*/
+.admin-right-pan {
+	background-color: rgb(91, 91, 91);
+	border-radius: 10px;
+	border: 1px solid white;
+	margin: 10px;
+	position: relative;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+}
+.stat-tab {
+	border-collapse: separate;
+	border-spacing: 15px 4px;
+}
+.stat-tab td {
+	padding: 2px 12px;
+	text-align: right;
+}
+.stat-tab td:nth-child(2), .stat-tab td:nth-child(4) {
+	background-color: rgb(51, 51, 51);
+	border: 1px solid rgb(164, 164, 164);
+	border-radius: 4px;
+	color: rgb(255, 255, 255);
+	font-weight: bold;
+}
+.stat-tab .stat-tab-city {
+	border: 1px solid rgb(172, 172, 225);
+	border-radius: 5px;
+	background-color: rgb(44, 44, 94);
+	text-align: center;
+}
+.stat-tab-city:hover {
+	background-color: rgb(92, 92, 164);
+	cursor: pointer;
+}

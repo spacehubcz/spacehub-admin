@@ -1,4 +1,4 @@
-import './LocCities.css';
+import './styles/LocCities.css';
 import { useState, useEffect } from 'react';
 import { LocCity } from './LocCity';
 
@@ -7,18 +7,13 @@ export const LocCities = () => {
 	const [sort, setSort] = useState(1);
 
 	const fetchData = async () => {
-		if (window.location.href.startsWith('http://localhost')) {
-			let dbtxt = '{"Cities": [{"CITY":"Brno","POTENTIAL":1486,"CNT":9,"SPACES":2,"OWNERS":2}, {"CITY":"\u010cesk\u00e9 Bud\u011bjovice","POTENTIAL":450,"CNT":4,"SPACES":0,"OWNERS":0}, {"CITY":"Hostivice","POTENTIAL":99,"CNT":1,"SPACES":0,"OWNERS":0}, {"CITY":"Hrade Kr\u00e1lov\u00e9","POTENTIAL":399,"CNT":3,"SPACES":0,"OWNERS":0}, {"CITY":"Jino\u010dany","POTENTIAL":160,"CNT":1,"SPACES":0,"OWNERS":0}, {"CITY":"Karlovy Vary","POTENTIAL":99,"CNT":2,"SPACES":0,"OWNERS":0}, {"CITY":"Moravany","POTENTIAL":376,"CNT":1,"SPACES":3,"OWNERS":2}, {"CITY":"Olomouc","POTENTIAL":647,"CNT":4,"SPACES":13,"OWNERS":2}, {"CITY":"Ostrava","POTENTIAL":181,"CNT":2,"SPACES":0,"OWNERS":0}, {"CITY":"Plze\u0148","POTENTIAL":955,"CNT":4,"SPACES":0,"OWNERS":0}, {"CITY":"Praha","POTENTIAL":448,"CNT":5,"SPACES":0,"OWNERS":0}, {"CITY":"Vy\u0161kov","POTENTIAL":250,"CNT":1,"SPACES":0,"OWNERS":0}, {"CITY":"Zl\u00edn","POTENTIAL":97,"CNT":2,"SPACES":0,"OWNERS":0}]}';
-			setCities(JSON.parse(dbtxt).Cities);
-		} else {
-			try {
-				const response = await fetch('../APIv01/get_loccities.php');
-				const facts = await response.json();
-				setCities(facts.Cities);
-				console.log(JSON.stringify(facts));
-			} catch (error) {
-				console.error('Error fetching data:', error);
-			}
+		try {
+			const response = await fetch('https://www.spacehub.cz/APIv01/get_loccities.php');
+			const facts = await response.json();
+			setCities(facts.Cities);
+			console.log(JSON.stringify(facts));
+		} catch (err) {
+			console.error('Error fetching data:', err);
 		}
 	};
 

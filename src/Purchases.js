@@ -1,29 +1,27 @@
 import { useState, useEffect } from "react";
 
-export const Purchases = ({setdetail, setstatistics}) => {
+export const Purchases = ({ setDetail, setStatistics }) => {
 	const [purchases, setPurchases] = useState([]);
 	const [sort, setSort] = useState(0);
 
 	const fetchData = async () => {
-		let url = '../APIv01/get_purchases.php';
-		if (window.location.href.startsWith('http://localhost'))
-			url = 'http://localhost:3080/get_purchases';
+		let url = 'https://www.spacehub.cz/APIv01/get_purchases.php';
 		let need = {nic: 0};
 		fetch(url, {
 			method: 'POST',
 			headers: {'Content-Type': 'application/json'},
 			body: JSON.stringify(need)
 		})
-		.then(r => r.json())
-		.then(r => {
-			console.log(JSON.stringify(r))
-			if ('OK' === r.sts)
-			{
-				setPurchases(r.purchases);
-			}
-			console.log(r);
-		})
-		.catch(error => console.error('This is the error: , ', error));
+			.then(r => r.json())
+			.then(r => {
+				console.log(JSON.stringify(r))
+				if ('OK' === r.sts)
+				{
+					setPurchases(r.purchases);
+				}
+				console.log(r);
+			})
+			.catch(err => console.error('This is the error: , ', err));
 	};
 
 	useEffect(() => {

@@ -14,14 +14,14 @@
 		const formData = new FormData(document.getElementById("formular"));
 		formData.forEach((value, key) => object[key] = value);
 		console.log(JSON.stringify(object));
-		fetch('../APIv01/get_spacefree.php', {
+		fetch('https://www.spacehub.cz/APIv01/get_spacefree.php', {
 			method: 'POST',
 			headers: {'Content-Type': 'application/json'},
 			body: JSON.stringify(object)
 		})
-		.then(response => response.text())
-		.then(txt => document.getElementById("result").innerHTML = txt)
-		.catch(error => console.error("Error occured: " + error));
+			.then(response => response.text())
+			.then(txt => document.getElementById("result").innerHTML = txt)
+			.catch(err => console.error("Error occured: " + err));
 
 	}
 </script>

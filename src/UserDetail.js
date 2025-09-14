@@ -1,7 +1,7 @@
 import {useState, useEffect} from 'react';
 import { SpaceDetail } from './SpaceDetail';
 
-export const UserDetail = ({user_id, setdetail}) => {
+export const UserDetail = ({ user_id, setDetail }) => {
 
 	let [usrDet, setUsrDet] = useState({
 		ID: user_id, 
@@ -22,16 +22,9 @@ export const UserDetail = ({user_id, setdetail}) => {
 
 	
 	const fetchData = async () => {
-		let url = '../APIv01/get_user.php';
+		let url = 'https://www.spacehub.cz/APIv01/get_user.php';
 		let hdr = {	method: 'POST',	headers: {'Content-Type': 'application/json'}, body: JSON.stringify({uid: user_id})};
-		if (window.location.href.startsWith('http://localhost')) {
-			let dbtxt = '{"user":{"ID":3,"NAME":"FERO","SURNAME":"Vopršálek","USERNAME":"franta","EMAIL":"rantavonta@nicnicnic.cz","PHONE":123456789,"STREET":"Ulice je jen název","CITY":"Praha","PSC":65498,"PASSWORD":"5f9755db013a24c05628b2d59219a85b751afee38ae9916ddcc49ae336843286","RECOVERY_TOKEN":null,"TOKEN_VALID_UNTIL":null,"ACCOUNT_NR":"","CREATED":"2024-10-15 14:52:30","LAST_CHANGE":"2025-02-04 20:29:18"},"spaces":[{"ID":5,"ID_OWNER":3,"ID_LOCATION":4,"NAME":"Misto pro větší automobil","WIDTH":4,"LENGTH":9,"HEIGHT":9,"GPS_LON":0,"GPS_LAN":0,"ACCESS":0,"PARCEL_NR":"","STREET":"","STREET_NR":"","COMMENT":"Toto je místo třeba i pro dodávku","CREATED":"2024-10-15 20:11:25","LAST_CHANGE":"2025-02-07 08:01:45","LNAME":"Holandská čtvrť","CITY":"Olomouc","DISTRICT":"Neředín"},{"ID":6,"ID_OWNER":3,"ID_LOCATION":4,"NAME":"Misto pro náklaďák - trochu větší","WIDTH":6,"LENGTH":8,"HEIGHT":7,"GPS_LON":0,"GPS_LAN":0,"ACCESS":0,"PARCEL_NR":"","STREET":"","STREET_NR":"","COMMENT":"Betonová ploch parkovacího místa","CREATED":"2025-02-07 20:11:25","LAST_CHANGE":"2025-02-07 08:01:45","LNAME":"Holandská čtvrť","CITY":"Olomouc","DISTRICT":"Neředín"},{"ID":7,"ID_OWNER":3,"ID_LOCATION":2,"NAME":"Takove ctverete parkovaci misto blizko dubu","WIDTH":6,"LENGTH":8,"HEIGHT":7,"GPS_LON":0,"GPS_LAN":0,"ACCESS":0,"PARCEL_NR":"","STREET":"","STREET_NR":"","COMMENT":"U velkého stromj / dubu","CREATED":"2025-02-07 20:11:25","LAST_CHANGE":"2025-02-07 08:01:45","LNAME":"Nová Slatina","CITY":"Brno","DISTRICT":"Slatina"}],"sts":"OK"}';
-			let alldb = JSON.parse(dbtxt);
-			setUsrDet(alldb.user);
-			setUsrSpace(alldb.spaces);
-		}
-		else {
-			fetch(url, hdr)
+		fetch(url, hdr)
 			.then((r) => r.json())
 			.then((r) => {
 				if ('OK' === r.sts) {
@@ -43,20 +36,16 @@ export const UserDetail = ({user_id, setdetail}) => {
 				}
 				console.log(JSON.stringify(r));
 			})
-			.catch(error => console.error("Neco se stalo: " + error));
-		}
+			.catch(err => console.error("Neco se stalo: " + err));
 	};
 
 	useEffect(() => {
 		document.getElementById('admin-footer').innerHTML = 'User ID = ' + user_id;
-		if (user_id > 0)
-		{
-			fetchData();
-		}
+		if (user_id > 0) fetchData();
 	}, [user_id]);
 
 	const setSelSpace = (spc) => {
-		setdetail(<SpaceDetail spaceIn={spc} />)
+		setDetail(<SpaceDetail spaceIn={spc} />)
 	}
 
 	if (user_id <= 0) return <></>

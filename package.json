@@ -2,7 +2,7 @@
   "name": "spacehub-admin",
   "version": "0.1.0",
   "private": true,
-  "homepage": "ad771256",
+  "homepage": "admin",
   "dependencies": {
     "cra-template": "1.2.0",
     "leaflet": "^1.9.4",

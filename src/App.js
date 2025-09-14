@@ -1,5 +1,5 @@
-import './App.css';
-import './index.css';
+import './styles/App.css';
+import './styles/index.css';
 import { useState } from 'react';
 import { Locations } from './Locations';
 import { LocCities } from './LocCities';
@@ -11,6 +11,7 @@ import { Spaces } from './Spaces.js';
 import { Offers } from './Offers.js';
 import { Purchases } from './Purchases.js';
 import { MapyCzUrl } from './MapyCzUrl.js';
+import { Qr } from './Qr.js';
 
 function App() {
   const [area, setArea] = useState(<div></div>);
@@ -20,6 +21,11 @@ function App() {
 
   document.title = 'S P A C E H U B - admin';
 
+  const basic = {
+	setDetail,
+	setStatistics,
+  }
+
   return (
     <div className='admin-all'>
 		<div className="admin-header">
@@ -27,14 +33,15 @@ function App() {
 		</div>
 		<div className='admin-content'>
 			<div className='admin-menu'>
-				<div onClick={() => setArea(<Locations setdetail={setDetail} setstatistics={setStatistics}/>)}>LOCATIONS</div>
-				<div onClick={() => setArea(<LocCities setdetail={setDetail} setstatistics={setStatistics}/>)}>CITIES</div>
-				<div onClick={() => setArea(<Users setdetail={setDetail} setstatistics={setStatistics}/>)}>USERS</div>
-				<div onClick={() => setArea(<Spaces setdetail={setDetail} setstatistics={setStatistics}/>)}>SPACES</div>
-				<div onClick={() => setArea(<Offers setdetail={setDetail} setstatistics={setStatistics}/>)}>OFFERS</div>
-				<div onClick={() => setArea(<Purchases setdetail={setDetail} setstatistics={setStatistics}/>)}>PURCHASES</div>
-				<div onClick={() => setArea(<MapyCzUrl setdetail={setDetail} setstatistics={setStatistics}/>)}>Mapy.cz url</div>
-				<div onClick={() => setArea(<LocationTracker setdetail={setDetail} setstatistics={setStatistics}/>)}>GPS</div>          
+				<div onClick={() => setArea(<Locations {...basic}/>)}>LOCATIONS</div>
+				<div onClick={() => setArea(<LocCities {...basic}/>)}>CITIES</div>
+				<div onClick={() => setArea(<Users {...basic}/>)}>USERS</div>
+				<div onClick={() => setArea(<Spaces {...basic}/>)}>SPACES</div>
+				<div onClick={() => setArea(<Offers {...basic}/>)}>OFFERS</div>
+				<div onClick={() => setArea(<Purchases {...basic}/>)}>PURCHASES</div>
+				<div onClick={() => setArea(<MapyCzUrl {...basic}/>)}>Mapy.cz url</div>
+				<div onClick={() => setArea(<LocationTracker {...basic}/>)}>GPS</div>          
+				<div onClick={() => setArea(<Qr {...basic}/>)}>QR</div>          
 			</div>
 			<div className='admin-area'>
 				{area}
@@ -47,7 +54,9 @@ function App() {
 					{detail}
 				</div>
 			</div>
-				{(showMap)?<MapCities />:<></>// mapa funguje, ale nejdou mi dat do markru cisla
+				{
+					(showMap) && <MapCities />
+					// mapa funguje, ale nejdou mi dat do markru cisla
 				}
 		</div>
 		<div id='admin-footer'>
@@ -56,5 +65,5 @@ function App() {
     </div>
   );
 };
-
+ 
 export default App;

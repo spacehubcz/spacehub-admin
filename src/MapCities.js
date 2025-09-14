@@ -1,6 +1,6 @@
 import React, {useState, useEffect} from 'react';
 import { MapContainer, TileLayer, Marker } from "react-leaflet";
-import './MapCities.css'
+import './styles/MapCities.css'
 import 'leaflet/dist/leaflet.css';
 import L from 'leaflet';
 delete L.Icon.Default.prototype._getIconUrl;
@@ -18,18 +18,10 @@ export const MapCities = () => {
 	const [cities, setCities] = useState([]);
 
 	useEffect(() => {
-		if (window.location.href.startsWith('http://localhost'))
-		{
-			let dbtxt = '{"Cities":[{"c":"Brno","n":7},{"c":"Praha","n":5},{"c":"Olomouc","n":4},{"c":"Plzeň","n":4},{"c":"České Budějovice","n":4},{"c":"Hrade Králové","n":3},{"c":"Ostrava","n":2},{"c":"Zlín","n":2},{"c":"Moravany","n":1},{"c":"Jinočany","n":1},{"c":"Vyškov","n":1},{"c":"Hostivice","n":1}]}';
-			setCities(JSON.parse(dbtxt).Cities);
-		}
-		else
-		{
-			fetch('../APIv01/get_cities.php')
+		fetch('https://www.spacehub.cz/APIv01/get_cities.php')
 			.then(resp => resp.json())
 			.then(json => setCities(json.Cities))
-			.catch(error => console.error("Chyba: " + error));
-		}
+			.catch(err => console.error("Chyba: " + err));
 	}, []);
 
 	useEffect(() => {

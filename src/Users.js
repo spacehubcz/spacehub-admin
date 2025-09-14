@@ -1,25 +1,20 @@
-import './Users.css';
-import {useState, useEffect} from 'react';
-import {User} from './User';
+import './styles/Users.css';
+import { useState, useEffect } from 'react';
+import { User } from './User';
 
-export const Users = ({setdetail, setstatistics}) => {
+export const Users = ({ setDetail, setStatistics }) => {
 	const [users, setUsers] = useState([]);
 	const [sort, setSort] = useState(0);
 
 	const fetchData = async () => {
-		if (window.location.href.startsWith('http://localhost')) {
-			const dbtxt = '{"USERS":[{"ID":1,"NAME":"Harmanek Jan","CITY":"Brno","STREET":"Popelakova 16","SPACES":2,"OFFER":0,"ACTIVE":0},{"ID":2,"NAME":"Harman Filip","CITY":"Brno","STREET":"Popelakova 16","SPACES":2,"OFFER":0,"ACTIVE":0},{"ID":3,"NAME":"Vopršálek Franta","CITY":"Praha","STREET":"Ulice je jen název","SPACES":0,"OFFER":0,"ACTIVE":0}]}';
-			setUsers(JSON.parse(dbtxt).USERS);
-		} else {
-			try {
-				const response = await fetch('../APIv01/get_users.php');
-				const usrs = await response.json();
-				setUsers(usrs.USERS);
-			}
-			catch (error) {
-				console.error('This is the error: , ', error);
-				return {};
-			}
+		try {
+			const response = await fetch('https://www.spacehub.cz/APIv01/get_users.php');
+			const usrs = await response.json();
+			setUsers(usrs.USERS);
+		}
+		catch (error) {
+			console.error('This is the error: , ', error);
+			return {};
 		}
 	};
 
@@ -49,12 +44,12 @@ export const Users = ({setdetail, setstatistics}) => {
 	}
 
 	const clearAllUserFlags = () => {
-		fetch('../APIv01/set_user_flags_0.php')
-		.then(r => r.json())
-		.then(r => {
-			fetchData()
-		})
-		.catch(error => console.error('Error', error));
+		fetch('https://www.spacehub.cz/APIv01/set_user_flags_0.php')
+			.then(r => r.json())
+			.then(r => {
+				fetchData()
+			})
+			.catch(err => console.error('Error', err));
 	}
 
     return (
@@ -78,7 +73,7 @@ export const Users = ({setdetail, setstatistics}) => {
 					</thead>
 					<tbody>
 						{
-							users.map(user => <User key={user.ID} user={user} setdetail={setdetail}/>)
+							users.map(user => <User key={user.ID} user={user} setDetail={setDetail}/>)
 						}
 					</tbody>
 				</table>

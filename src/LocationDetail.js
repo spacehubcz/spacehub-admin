@@ -1,8 +1,8 @@
-import './InfoPane.css';
+import './styles/InfoPane.css';
 import {useState, useEffect} from 'react';
 import { InfoPane } from './InfoPane';
 
-export const LocationDetail = ({current, changed}) => {
+export const LocationDetail = ({ current, changed }) => {
 
 	let [infoTxt, setInfoTxt] = useState('');
 	let [locDet, setLocDet] = useState({
@@ -23,27 +23,21 @@ export const LocationDetail = ({current, changed}) => {
 	const [imgSrc, setImgSrc] = useState(null);
 
 	const fetchData = async () => {
-		if (window.location.href.startsWith('http://localhost')) {
-			let dbtxt = '[{"LOCATION_ID": 1, "Detail":{"ID":1,"CITY":"Nevser","DISTRICT":"Futos","NAME":"Odra","GPS":0,"ADMIN_STATUS":1,"AREA":8908,"CATASTRAL":"KDo vico","CATASTRAL_NR":698504,"NUM_OF_SPACES":3765,"URL":"9mIwcxTgJ08LBDUNR6Z8KpNgUVLgg1KBl6UfkEfgCN5HN&x=16.5915455&y=49.1531047&z=17","CREATED":"2024-09-24 10:22:07","LAST_CHANGE":"2024-10-25 17:55:59","COMMENT":"123"},"Points": [[49.154417,16.589939], [49.153786,16.588912], [49.153561,16.588904], [49.153319,16.588992], [49.152803,16.589625], [49.152758,16.589778], [49.152919,16.590379], [49.152996,16.590450], [49.152994,16.590620], [49.152902,16.591717], [49.153051,16.591712], [49.154339,16.591631], [49.154664,16.591554], [49.154682,16.591163], [49.154725,16.590473]]}, {"LOCATION_ID": 2, "Detail":{"ID":2,"CITY":"lets m","DISTRICT":"","NAME":"Nov\u00e1 Slatina","GPS":0,"ADMIN_STATUS":1,"AREA":41221,"CATASTRAL":"Slatina (okres Brno-m\u011bsto)","CATASTRAL_NR":612286,"NUM_OF_SPACES":46,"URL":"9mVeUxTocsIDGTNZJqIbHrNV2HgYJf1tULZILJYbfdQgZs&x=16.6755764&y=49.1851127&z=16","CREATED":"2024-09-24 11:07:30","LAST_CHANGE":"2024-10-27 11:05:33","COMMENT":"Komentar"},"Points": [[49.181870,16.669486], [49.181515,16.669063], [49.181315,16.669114], [49.181056,16.668784], [49.180579,16.668821], [49.179178,16.671608], [49.180121,16.672783], [49.181871,16.669543]]}, {"LOCATION_ID": 3, "Detail":{"ID":3,"CITY":"Lem","DISTRICT":"Bombagh","NAME":"U Hoaka","GPS":0,"ADMIN_STATUS":0,"AREA":80,"CATASTRAL":"L\u00ed\u0161e\u0148 (okres Brno-m\u011bsto)","CATASTRAL_NR":null,"NUM_OF_SPACES":91,"URL":"9mX5oxTzEMNR6jLdRhCXRvHiFBMwLIOxNBOPQqW9Jl6TIa&x=16.6826038&y=49.2120828&z=17","CREATED":"2024-09-24 11:16:07","LAST_CHANGE":"2024-10-27 11:08:01","COMMENT":"Posledni"},"Points": [[49.214090,16.679712], [49.213710,16.679193], [49.213626,16.679193], [49.213628,16.679783], [49.213192,16.679970], [49.213154,16.680830], [49.213593,16.680944], [49.213833,16.680840], [49.214082,16.679757]]}]';
-			let locdetail = JSON.parse(dbtxt)[current%3].Detail;
-			setLocDet(locdetail);
-		} else {
-			try {
-				const response = await fetch('../APIv01/get_location.php?id='+current);
-				const facts = await response.json();
-				if (facts.sts === "OK")
-				{
-					setLocDet(facts.Detail);
-					if (facts.img)
-						setImgSrc('https://www.spacehub.cz/Img/Loc/L'+String(current).padStart(6, '0')+'.webp');
-					else
-						setImgSrc('https://www.spacehub.cz/Img/Loc/L000000.webp');
-				}
+		try {
+			const response = await fetch(`https://www.spacehub.cz/APIv01/get_location.php?id=${current}`);
+			const facts = await response.json();
+			if (facts.sts === "OK")
+			{
+				setLocDet(facts.Detail);
+				if (facts.img)
+					setImgSrc('https://www.spacehub.cz/Img/Loc/L'+String(current).padStart(6, '0')+'.webp');
 				else
-					console.log(JSON.stringify(facts));
-			} catch (error) {
-				console.error('Error fetching data:', error);
+					setImgSrc('https://www.spacehub.cz/Img/Loc/L000000.webp');
 			}
+			else
+				console.log(JSON.stringify(facts));
+		} catch (err) {
+			console.error('Error fetching data:', err);
 		}
 	};
 
@@ -54,16 +48,16 @@ export const LocationDetail = ({current, changed}) => {
 	const updateLocation = (dr) => {
 		let wr = locDet;
 		if (!dr) wr.ID = 0;
-		fetch('../APIv01/set_location.php', {
+		fetch('https://www.spacehub.cz/APIv01/set_location.php', {
 			method: 'POST',
 			headers: {'Content-Type': 'application/json'},
 			body: JSON.stringify(wr)
 		})
-		.then(response => response.json())
-		.then(json => {
-			console.log(JSON.stringify(json))
-			setInfoTxt("ok " + JSON.stringify(json))})
-		.catch(error => console.error("Error occured: " + error));
+			.then(response => response.json())
+			.then(json => {
+				console.log(JSON.stringify(json))
+				setInfoTxt("ok " + JSON.stringify(json))})
+			.catch(err => console.error("Error occured: " + err));
 
 		setTimeout(() => {
 			changed(Date.now());

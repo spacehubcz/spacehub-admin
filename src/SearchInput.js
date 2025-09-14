@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import './Search.css'
+import './styles/Search.css'
 
 export const SearchInput = ({locList, id, setSelLocId}) => {
 

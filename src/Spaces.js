@@ -1,55 +1,50 @@
-import './Users.css';
+import './styles/Users.css';
 import {useState, useEffect} from 'react';
 import { SpaceDetail } from './SpaceDetail';
 
-export const Spaces = ({setdetail, setstatistics}) => {
+export const Spaces = ({ setDetail, setStatistics }) => {
 	const [spaces, setSpaces] = useState([]);
 	const [sort, setSort] = useState(0);
 	const [locations, setLocations] = useState([])
 	const [selLocation, setSelLocation] = useState(0)
 
 	const fetchLocations = () => {
-		let url = '../APIv01/get_locations.php';
-		if (window.location.href.startsWith('http://localhost'))
-			url = 'http://localhost:3080/get_locations';
+		let url = 'https://www.spacehub.cz/APIv01/get_locations.php';
 		fetch(url, {
 			method: 'POST',
 			headers: {'Content-type': 'application/json'},
 			body: '{"uid":0}'
 		})
-		.then(r => r.json())
-		.then(r => {
-			if ('OK' === r.sts) {
-				console.log(JSON.stringify(r))
-				setLocations(r.LOCATIONS);
-			} else console.log('LOCATIONS not loaded, it is: '+r.sts+' with msg: '+r.msg)
-		})
-		.catch(error => console.error('Neco se stalo: ', error))
+			.then(r => r.json())
+			.then(r => {
+				if ('OK' === r.sts) {
+					console.log(JSON.stringify(r))
+					setLocations(r.LOCATIONS);
+				} else console.log('LOCATIONS not loaded, it is: '+r.sts+' with msg: '+r.msg)
+			})
+			.catch(err => console.error('Neco se stalo: ', err))
 	}
 
 	const fetchData = async () => {
-		let url = '../APIv01/get_spaces.php';
-		if (window.location.href.startsWith('http://localhost'))
-			url = 'http://localhost:3080/get_spaces';
+		let url = 'https://www.spacehub.cz/APIv01/get_spaces.php';
 		fetch(url, {
 			method: 'POST',
 			headers: {'Content-type': 'application/json'},
 			body: '{"lid":' + selLocation + '}'
 		})
-		.then(r => r.json())
-		.then(r => {
-			if ('OK' === r.sts) {
-				r.spaces.forEach(spc => {
-					spc.CITY = spc.CITY + ' ' + spc.STREET + ' ' + spc.STREET_NR;
-				});
-				setSpaces(r.spaces)  
-			} else console.log('sts is not okay, it is: '+r.sts+' with msg: '+r.msg)
-		})
-		.catch(error => console.error('Neco se stalo: ', error))
+			.then(r => r.json())
+			.then(r => {
+				if ('OK' === r.sts) {
+					r.spaces.forEach(spc => {
+						spc.CITY = spc.CITY + ' ' + spc.STREET + ' ' + spc.STREET_NR;
+					});
+					setSpaces(r.spaces)  
+				} else console.log('sts is not okay, it is: '+r.sts+' with msg: '+r.msg)
+			})
+			.catch(err => console.error('Neco se stalo: ', err))
 	}
 
 	useEffect(() => {
-
 		fetchLocations();
 	}, []);
 
@@ -84,7 +79,7 @@ export const Spaces = ({setdetail, setstatistics}) => {
 	}
 
 	const setSelSpace = (spc) => {
-		setdetail(<SpaceDetail spaceIn={spc} />)
+		setDetail(<SpaceDetail spaceIn={spc} />)
 	}
 
 	const getLocations = () => {

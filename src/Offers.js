@@ -1,17 +1,13 @@
 import { useState, useEffect } from "react";
 
-export const Offers = ({setdetail, setstatistics}) => {
+export const Offers = ({ setDetail, setStatistics }) => {
 	const [offers, setOffers] = useState([]);
 	const [sort, setSort] = useState(0);
 
 	const fetchData = async () => {
-		if (window.location.href.startsWith('http://localhost')) {
-			const dbtxt = '{"php":"get_offers", "user":0, "offers": [{"ID":1,"SPACE_ID":10,"USER_ID":1,"FROM":"2025-03-07 07:00:00","TO":"2025-03-31 20:30:00","PRICE":1,"FLAGS":0,"MIN_RENT_TIME":60,"CREATED":"2025-03-08 20:05:10","LAST_CHANGE":"2025-03-08 20:05:10"}, {"ID":2,"SPACE_ID":13,"USER_ID":1,"FROM":"2025-03-09 12:00:00","TO":"2025-04-24 08:00:00","PRICE":1,"FLAGS":0,"MIN_RENT_TIME":60,"CREATED":"2025-03-08 20:05:10","LAST_CHANGE":"2025-03-08 20:05:10"}], "sts":"OK"}';
-			setOffers(JSON.parse(dbtxt).offers);
-		} else {
-			let usr = {uid: 0};
-			let hdr = {	method: 'POST',	headers: {'Content-Type': 'application/json'}, body: JSON.stringify(usr)};
-			fetch('../APIv01/get_offers.php', hdr)
+		let usr = {uid: 0};
+		let hdr = {	method: 'POST',	headers: {'Content-Type': 'application/json'}, body: JSON.stringify(usr)};
+		fetch('https://www.spacehub.cz/APIv01/get_offers.php', hdr)
 			.then(r => r.json())
 			.then(r => {
 				if ('OK' === r.sts)
@@ -20,8 +16,7 @@ export const Offers = ({setdetail, setstatistics}) => {
 				}
 				console.log(r);
 			})
-			.catch(error => console.error('This is the error: , ', error));
-		}
+			.catch(err => console.error('This is the error: , ', err));
 	};
 
 	useEffect(() => {

@@ -3,15 +3,10 @@ import ReactDOM from 'react-dom/client';
 import './styles/index.css';
 import App from './App';
 
-const author = localStorage.getItem('brambory') || null
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
     <React.StrictMode>
-        {
-            author === 'peceny' ?
-            <App /> :
-            <div>No autorization</div>
-        }
+        <App />
     </React.StrictMode>
 );
 

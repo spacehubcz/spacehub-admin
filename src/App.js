@@ -37,13 +37,9 @@ function App() {
 
 	useEffect(() => {
 		let stored_user =  validateJson(decodeLocal('spacehub-user')) ? JSON.parse(decodeLocal('spacehub-user')) : undefined
-
 		if (!stored_user || !stored_user.tok || !stored_user.pay) return
 
 		stored_user.adm = 4;
-		// ???
-
-		console.log(JSON.stringify(stored_user))
 		
 		// If the token exists, verify it with the auth server to see if it is valid
 		const url = 'https://www.spacehub.cz/APIv01/log_verify.php';
@@ -59,7 +55,6 @@ function App() {
 					setPass(true)
 				} else {
 					setPass(false)
-					console.log('no no no')
 				}
 			})
 			.catch(err => {})

@@ -1,6 +1,8 @@
-import { useEffect } from "react";
+import { useEffect, useRef } from "react";
+
 export const InfoPane = ({txt}) => {
-	setTimeout(function(){document.getElementById('infoPaneDiv').style.display = "none";}, 5000);
+	const infoRef = useRef(null);
+	setTimeout(function(){infoRef.current.style.display = "none";}, 5000);
 	let stl = txt.slice(0, 2);
 	let text = txt.slice(3);
 	let clsName;
@@ -14,11 +16,11 @@ export const InfoPane = ({txt}) => {
 	}
 
 	useEffect(() => {
-		document.getElementById('infoPaneDiv').style.display = "";
+		if (infoRef.current) infoRef.current.style.display = "";
 	}, [txt])
 
 	return (
-		<div className={clsName} id="infoPaneDiv">
+		<div className={clsName} ref={infoRef}>
 			{text}
 		</div>
 	);

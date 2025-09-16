@@ -8,6 +8,7 @@ export const SpaceDetail = ({spaceIn}) => {
 	const [infoTxt, setInfoTxt] = useState('');
 	const [locList, setLocList] = useState([{}]);
 	const [space, setSpace] = useState(spaceIn);
+	const [spimg, setSpimg] = useState(null);
 	const [selLocId, setSelLocId] = useState(spaceIn.ID_LOCATION);
 
 	const fetchData = async () => {
@@ -28,6 +29,13 @@ export const SpaceDetail = ({spaceIn}) => {
 
 	useEffect(() => {
 		fetchData();
+
+		if (space.ID) {
+			const id = String(space.ID).padStart(6, '0');
+			setSpimg(`https://www.spacehub.cz/Img/Spc/sp${id}.webp`);
+		} else {
+			setSpimg("https://www.spacehub.cz/Img/Spc/sp000000.webp");
+		}
 	}, []);
 
 	const updateSpace = () => {
@@ -40,8 +48,8 @@ export const SpaceDetail = ({spaceIn}) => {
 			headers: {'Content-Type': 'application/json'},
 			body: JSON.stringify(wr)
 		})
-			.then(response => response.json())
-			.then(json => setInfoTxt("ok " + JSON.stringify(json)))
+			.then(r => r.json())
+			.then(r => setInfoTxt("ok " + JSON.stringify(r)))
 			.catch(err => console.error("Error occured: " + err));
 
 		// setTimeout(() => {
@@ -55,17 +63,6 @@ export const SpaceDetail = ({spaceIn}) => {
 			...space,
 			[name]: value
 		});
-	}
-
-	var s = "00000" + space.ID;
-	s = s.substring(s.length-6);
-	let obr = null;
-	try {
-		obr = require("../Img/Spc/sp" + s +".webp");
-	}
-	catch {
-		s = "000000";
-		obr = require("../Img/Spc/sp" + s +".webp");
 	}
 
 	if (space === null) return <></>
@@ -96,7 +93,7 @@ export const SpaceDetail = ({spaceIn}) => {
 					<tr key={10}><td>Created</td><td colSpan={2}><span className='loc-det-crecha'>{space.CREATED}</span></td><td>Changed</td><td colSpan={2}><span className='loc-det-crecha'>{space.LAST_CHANGE}</span></td></tr>
 				</tbody>
 			</table>
-			<img src={obr} className='space-det-img' alt=''/>
+			<img src={spimg} className='space-det-img' alt=''/>
 		</>
 	);
 };

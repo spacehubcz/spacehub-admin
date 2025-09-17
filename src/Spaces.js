@@ -26,31 +26,24 @@ export const Spaces = ({ setDetail, setStatistics }) => {
 	// }
 
 	const fetchData = async () => {
-		const lids = [1, 2, 43]
-
-		let spcs = []
-		
 		let url = 'https://www.spacehub.cz/APIv01/get_spaces.php';
 
-		for (let lid of lids) {
-			fetch(url, {
-				method: 'POST',
-				headers: {'Content-type': 'application/json'},
-				body: JSON.stringify({lid})
-				//to much fetch calls
+		fetch(url, {
+			method: 'POST',
+			headers: {'Content-type': 'application/json'},
+			body: JSON.stringify({a: 1})
+			// body: JSON.stringify({lid})
+		})
+			.then(r => r.json())
+			.then(r => {
+				if ('OK' === r.sts) {
+					r.spaces.forEach(spc => {
+						spc.CITY = spc.CITY + ' ' + spc.STREET + ' ' + spc.STREET_NR;
+					});
+					setSpaces(r.spaces)
+				} else console.log('sts is not okay, it is: '+r.sts+' with msg: '+r.msg)
 			})
-				.then(r => r.json())
-				.then(r => {
-					if ('OK' === r.sts) {
-						r.spaces.forEach(spc => {
-							spc.CITY = spc.CITY + ' ' + spc.STREET + ' ' + spc.STREET_NR;
-						});
-						spcs.push(...r.spaces)
-						if (lid === lids[lids.length - 1]) setSpaces(spcs)
-					} else console.log('sts is not okay, it is: '+r.sts+' with msg: '+r.msg)
-				})
-				.catch(err => console.error('Neco se stalo: ', err))
-		}
+			.catch(err => console.error('Neco se stalo: ', err))
 	};
 
 	// useEffect(() => {

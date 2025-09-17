@@ -5,17 +5,18 @@ export const Offers = ({ setDetail, setStatistics }) => {
 	const [sort, setSort] = useState(0);
 
 	const fetchData = async () => {
-		let usr = {uid: 0};
-		//how to fetch all offers
-		let hdr = {	method: 'POST',	headers: {'Content-Type': 'application/json'}, body: JSON.stringify(usr)};
-		fetch('https://www.spacehub.cz/APIv01/get_offers.php', hdr)
+		const url = 'https://www.spacehub.cz/APIv01/get_offers.php';
+		
+		fetch(url, {
+			method: 'POST',
+			headers: {'Content-Type': 'application/json'},
+			body: JSON.stringify({uid: 0})
+		})
 			.then(r => r.json())
 			.then(r => {
-				if ('OK' === r.sts)
-				{
+				if ('OK' === r.sts)	{
 					setOffers(r.offers);
 				}
-				console.log(r);
 			})
 			.catch(err => console.error('This is the error: , ', err));
 	};

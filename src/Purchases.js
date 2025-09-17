@@ -7,6 +7,7 @@ export const Purchases = ({ setDetail, setStatistics }) => {
 	const fetchData = async () => {
 		let url = 'https://www.spacehub.cz/APIv01/get_purchases.php';
 		let need = {nic: 0};
+		//what it is & how to fetch all purchases
 		fetch(url, {
 			method: 'POST',
 			headers: {'Content-Type': 'application/json'},

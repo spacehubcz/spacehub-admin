@@ -25,17 +25,17 @@ export const SpaceDetail = ({spaceIn}) => {
 
 	useEffect(() => {
 		setSpace(spaceIn);
-	}, [spaceIn]);
 
-	useEffect(() => {
-		fetchData();
-
-		if (space.ID) {
-			const id = String(space.ID).padStart(6, '0');
+		if (spaceIn.ID) {
+			const id = String(spaceIn.ID).padStart(6, '0');
 			setSpimg(`https://www.spacehub.cz/Img/Spc/sp${id}.webp`);
 		} else {
 			setSpimg("https://www.spacehub.cz/Img/Spc/sp000000.webp");
 		}
+	}, [spaceIn]);
+
+	useEffect(() => {
+		fetchData();
 	}, []);
 
 	const updateSpace = () => {

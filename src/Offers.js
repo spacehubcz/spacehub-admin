@@ -6,6 +6,7 @@ export const Offers = ({ setDetail, setStatistics }) => {
 
 	const fetchData = async () => {
 		let usr = {uid: 0};
+		//how to fetch all offers
 		let hdr = {	method: 'POST',	headers: {'Content-Type': 'application/json'}, body: JSON.stringify(usr)};
 		fetch('https://www.spacehub.cz/APIv01/get_offers.php', hdr)
 			.then(r => r.json())

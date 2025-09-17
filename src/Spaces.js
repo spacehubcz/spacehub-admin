@@ -5,59 +5,68 @@ import { SpaceDetail } from './SpaceDetail';
 export const Spaces = ({ setDetail, setStatistics }) => {
 	const [spaces, setSpaces] = useState([]);
 	const [sort, setSort] = useState(0);
-	const [locations, setLocations] = useState([])
-	const [selLocation, setSelLocation] = useState(0)
+	// const [locations, setLocations] = useState([])
+	// const [selLocation, setSelLocation] = useState(0)
 
-	const fetchLocations = () => {
-		let url = 'https://www.spacehub.cz/APIv01/get_locations.php';
-		fetch(url, {
-			method: 'POST',
-			headers: {'Content-type': 'application/json'},
-			body: '{"uid":0}'
-		})
-			.then(r => r.json())
-			.then(r => {
-				if ('OK' === r.sts) {
-					console.log(JSON.stringify(r))
-					setLocations(r.LOCATIONS);
-				} else console.log('LOCATIONS not loaded, it is: '+r.sts+' with msg: '+r.msg)
-			})
-			.catch(err => console.error('Neco se stalo: ', err))
-	}
+	// const fetchLocations = () => {
+	// 	let url = 'https://www.spacehub.cz/APIv01/get_locations.php';
+	// 	fetch(url, {
+	// 		method: 'POST',
+	// 		headers: {'Content-type': 'application/json'},
+	// 		body: '{"uid":0}'
+	// 	})
+	// 		.then(r => r.json())
+	// 		.then(r => {
+	// 			if ('OK' === r.sts) {
+	// 				console.log(JSON.stringify(r))
+	// 				setLocations(r.LOCATIONS);
+	// 			} else console.log('LOCATIONS not loaded, it is: '+r.sts+' with msg: '+r.msg)
+	// 		})
+	// 		.catch(err => console.error('Neco se stalo: ', err))
+	// }
 
 	const fetchData = async () => {
+		const lids = [1, 2, 43]
+
+		let spcs = []
+		
 		let url = 'https://www.spacehub.cz/APIv01/get_spaces.php';
-		fetch(url, {
-			method: 'POST',
-			headers: {'Content-type': 'application/json'},
-			body: '{"lid":' + selLocation + '}'
-		})
-			.then(r => r.json())
-			.then(r => {
-				if ('OK' === r.sts) {
-					r.spaces.forEach(spc => {
-						spc.CITY = spc.CITY + ' ' + spc.STREET + ' ' + spc.STREET_NR;
-					});
-					setSpaces(r.spaces)  
-				} else console.log('sts is not okay, it is: '+r.sts+' with msg: '+r.msg)
+
+		for (let lid of lids) {
+			fetch(url, {
+				method: 'POST',
+				headers: {'Content-type': 'application/json'},
+				body: JSON.stringify({lid})
+				//to much fetch calls
 			})
-			.catch(err => console.error('Neco se stalo: ', err))
-	}
+				.then(r => r.json())
+				.then(r => {
+					if ('OK' === r.sts) {
+						r.spaces.forEach(spc => {
+							spc.CITY = spc.CITY + ' ' + spc.STREET + ' ' + spc.STREET_NR;
+						});
+						spcs.push(...r.spaces)
+						if (lid === lids[lids.length - 1]) setSpaces(spcs)
+					} else console.log('sts is not okay, it is: '+r.sts+' with msg: '+r.msg)
+				})
+				.catch(err => console.error('Neco se stalo: ', err))
+		}
+	};
+
+	// useEffect(() => {
+	// 	fetchLocations();
+	// }, []);
 
 	useEffect(() => {
-		fetchLocations();
-	}, []);
-
-	useEffect(() => {
-		if (!selLocation) return;
+		// if (!selLocation) return;
 		fetchData();
-	}, [selLocation]);
+	}, []);
+	// }, [selLocation]);
 
 	const sortSpaces = (s) => {
 		if (Math.abs(sort) === s) s = sort * -1;
 		setSort(s);
-		switch (s)
-		{
+		switch (s) {
 			default:
 			case -1:	setSpaces([...spaces].sort((a, b) => b.ID - a.ID)); break;
 			case 1:		setSpaces([...spaces].sort((a, b) => a.ID - b.ID)); break;
@@ -82,30 +91,25 @@ export const Spaces = ({ setDetail, setStatistics }) => {
 		setDetail(<SpaceDetail spaceIn={spc} />)
 	}
 
-	const getLocations = () => {
+	// const getLocations = () => {
 
-		return (
-			<select onChange={locationChange}>
-				{locations.map(loc => 
-					<option key={loc.ID} value={loc.ID}>{loc.ID + ': ' + loc.CITY + ' : ' + loc.NAME}</option>
-				)}
-			</select>
-		)
-	}
+	// 	return (
+	// 		<select onChange={locationChange}>
+	// 			{locations.map(loc => 
+	// 				<option key={loc.ID} value={loc.ID}>{loc.ID + ': ' + loc.CITY + ' : ' + loc.NAME}</option>
+	// 			)}
+	// 		</select>
+	// 	)
+	// }
 
-	const locationChange = (e) => {
-		let lid = e.target.value
-		setSelLocation(Number(lid))
-	}
+	// const locationChange = (e) => {
+	// 	let lid = e.target.value
+	// 	setSelLocation(Number(lid))
+	// }
 
     return (
 		<div className='spaces-main'>
-			<div>
-				
-				{getLocations()} S P A C E S
-				{// prostor pro filter nebo tak neco 
-				}
-			</div>
+			{/* {getLocations()} S P A C E S */}
 			<div className='usr-body'>
 				<table className='usr-tab'>
 					<thead>
@@ -123,17 +127,19 @@ export const Spaces = ({ setDetail, setStatistics }) => {
 					</thead>
 					<tbody>
 						{
-							spaces.map(spc => <tr key={spc.ID}>
-								<td>{spc.ID}</td>
-								<td>{spc.NAME}</td>
-								<td>{spc.OFFERS}</td>
-								<td>{spc.CITY}</td>
-								<td>{spc.WIDTH} x {spc.LENGTH} x {spc.HEIGHT}</td>
-								<td>{spc.COMMENT}</td>
-								<td>{spc.PARCEL_NR}</td>
-								<td>{spc.ACCESS}</td>
-								<td onClick={() => setSelSpace(spc)}>GPS</td>
-							</tr>)
+							spaces.map(spc => (
+								<tr key={spc.ID}>
+									<td>{spc.ID}</td>
+									<td>{spc.NAME}</td>
+									<td>{spc.OFFERS}</td>
+									<td>{spc.CITY}</td>
+									<td>{spc.WIDTH} x {spc.LENGTH} x {spc.HEIGHT}</td>
+									<td>{spc.COMMENT}</td>
+									<td>{spc.PARCEL_NR}</td>
+									<td>{spc.ACCESS}</td>
+									<td onClick={() => setSelSpace(spc)}>GPS</td>
+								</tr>
+							))
 						}
 					</tbody>
 				</table>

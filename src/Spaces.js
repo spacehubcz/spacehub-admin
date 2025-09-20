@@ -31,7 +31,7 @@ export const Spaces = ({ setDetail, setStatistics }) => {
 		fetch(url, {
 			method: 'POST',
 			headers: {'Content-type': 'application/json'},
-			body: JSON.stringify({a: 1})
+			body: JSON.stringify({ a: 1 })
 			// body: JSON.stringify({lid})
 		})
 			.then(r => r.json())

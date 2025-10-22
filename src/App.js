@@ -12,6 +12,7 @@ import { Offers } from './Offers.js';
 import { Purchases } from './Purchases.js';
 import { MapyCzUrl } from './MapyCzUrl.js';
 import { Qr } from './Qr.js';
+import { Attendance } from './Attendance.js';
 
 function App() {
 	const [area, setArea] = useState(<div></div>);
@@ -83,6 +84,7 @@ function App() {
 					<div onClick={() => setArea(<MapyCzUrl {...basic}/>)}>Mapy.cz url</div>
 					<div onClick={() => setArea(<LocationTracker {...basic}/>)}>GPS</div>          
 					<div onClick={() => setArea(<Qr {...basic}/>)}>QR</div>          
+					<div onClick={() => setArea(<Attendance {...basic}/>)}>Attendance</div>          
 				</div>
 				<div className='admin-area'>
 					{area}

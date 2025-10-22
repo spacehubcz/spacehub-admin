@@ -84,7 +84,7 @@ function App() {
 					<div onClick={() => setArea(<MapyCzUrl {...basic}/>)}>Mapy.cz url</div>
 					<div onClick={() => setArea(<LocationTracker {...basic}/>)}>GPS</div>          
 					<div onClick={() => setArea(<Qr {...basic}/>)}>QR</div>          
-					<div onClick={() => setArea(<Attendance {...basic}/>)}>Attendance</div>          
+					<div onClick={() => setArea(<Attendance {...basic}/>)}>ATTENDANCE</div>          
 				</div>
 				<div className='admin-area'>
 					{area}

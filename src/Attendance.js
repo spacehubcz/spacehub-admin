@@ -4,14 +4,23 @@ export const Attendance = () => {
     const [scans, setScans] = useState([])
 
     useEffect(() => {
-        fetch('https://www.spacehub.cz/APIv01/get_stat.php')
+        const url = 'https://www.spacehub.cz/APIv01/get_stat.php'
+        fetch(url, {
+            method: 'POST',
+            headers: {'Content-type': 'application/json'},
+            body: JSON.stringify({
+                uid: 'ALL',
+                days: 30,
+                test: false
+            })
+        })
             .then(r => r.json())
             .then(r => {
                 if (r.sts === 'OK') {
-                    setScans(r.qrc)
+                    setScans(r.statistics)
                 }
             })
-            .catch(err => console.error('Error fetching scans:', err))
+            .catch(err => console.error('Error fetching statistics:', err))
     }, [])
 
     const Scan = ({ sc }) => (

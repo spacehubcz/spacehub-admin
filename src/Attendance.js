@@ -1,11 +1,14 @@
 import React, { useEffect, useState } from 'react'
+import { MapCities } from './MapCities'
 
 export const Attendance = () => {
     const [scans, setScans] = useState([])
+    const [map, setMap] = useState(false)
+    const [ip, setIp] = useState('')
 
     useEffect(() => {
         const url = 'https://www.spacehub.cz/APIv01/get_stat.php'
-        
+
         fetch(url, {
             method: 'POST',
             headers: {'Content-type': 'application/json'},
@@ -28,7 +31,10 @@ export const Attendance = () => {
         <tr className='usr-row'>
             <td className='rowNum'>{sc.IP}</td>
             <td className='rowNum'>{sc.NAME}</td>
-            <td className='rowNum'>{sc.GPS}</td>
+            <td className='rowNum' onClick={() => {
+                setIp(sc.IP)
+                setMap(true)
+            }}>{sc.GPS}</td>
             <td className='rowNum'>{sc.TIME}</td>
         </tr>   
     )
@@ -57,6 +63,7 @@ export const Attendance = () => {
 					</tbody>
 				</table>
 			</div>
+            {map && <MapCities ip={ip} />}
 		</div>
     )
 }

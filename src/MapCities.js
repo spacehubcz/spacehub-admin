@@ -13,7 +13,7 @@ L.Icon.Default.mergeOptions({
 	html: '<span class="icon-text">56</span>'
 });
 
-export const MapCities = () => {
+export const MapCities = ({ ip = '' }) => {
 	const [markers, setMarkers] = useState([]);
 	const [cities, setCities] = useState([]);
 
@@ -37,8 +37,8 @@ export const MapCities = () => {
 					let stats = []
 					r.statistics.forEach(stat => {
 						const coords = stat.GPS
-						const [lat, lon] = coords.match(/[-]?\d+(\.\d+)?/g).map(Number);
-						stats.push({ lat, lon })
+						const [lon, lat] = coords.match(/[-]?\d+(\.\d+)?/g).map(Number);
+						if ((ip === '' || stat.IP === ip) && lon !== 0) stats.push({ lon, lat })
 					})
 					setCities(stats)
                 }
@@ -60,7 +60,7 @@ export const MapCities = () => {
 	return (
 		<div className='map-cities-container'>
 			<div className='map-cities' id='map'>
-				<MapContainer className='map-cities-cont' bounds={[[51.1359, 11.98], [48.3723, 17.96]]} maxZoom={18}>
+				<MapContainer className='map-cities-cont' bounds={[[49.3, 16.3], [49.1, 16.8]]} maxZoom={18}>
 					<TileLayer
 						url="https://api.mapy.cz/v1/maptiles/basic/256/{z}/{x}/{y}?apikey=fkCf-F6Pxf7bjiTKHIDo5k9i2xEBjUNSgvzaDeQck50"
 						attribution='<a href="https://api.mapy.cz/copyright" target="_blank">&copy; Seznam.cz a.s. a další</a>'

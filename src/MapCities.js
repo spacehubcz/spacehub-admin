@@ -18,21 +18,41 @@ export const MapCities = () => {
 	const [cities, setCities] = useState([]);
 
 	useEffect(() => {
-		fetch('https://www.spacehub.cz/APIv01/get_cities.php')
-			.then(resp => resp.json())
-			.then(json => setCities(json.Cities))
-			.catch(err => console.error("Chyba: " + err));
+		const url = 'https://www.spacehub.cz/APIv01/get_stat.php'
+        
+        fetch(url, {
+            method: 'POST',
+            headers: {'Content-type': 'application/json'},
+            body: JSON.stringify({
+                uid: 'ALL',
+                days: 30,
+                test: false
+            })
+        })
+            .then(r => r.json())
+            .then(r => {
+				console.log('rrr: ', JSON.stringify(r))
+                if (r.sts === 'OK') {
+                    // setScans(r.statistics)
+					let stats = []
+					r.statistics.forEach(stat => {
+						const coords = stat.GPS
+						const [lat, lon] = coords.match(/[-]?\d+(\.\d+)?/g).map(Number);
+						stats.push({ lat, lon })
+					})
+					setCities(stats)
+                }
+            })
+            .catch(err => console.error('Error fetching statistics: ', err))
 	}, []);
 
 	useEffect(() => {
 		let mks = [];
-		let i = 0;
 		console.log(cities);
 		if (!cities || !cities.length) return;
-		cities.forEach(city => {
+		cities.forEach((city, idx) => {
 			console.log(city);
-			mks.push(<Marker key={city.c} position={[50.1359, 11.98+i]} >sd</Marker>);
-			i += 0.2;
+			mks.push(<Marker key={idx} position={[city.lat, city.lon]} >sd</Marker>);
 		});
 		setMarkers(mks);
 	}, [cities]);

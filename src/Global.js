@@ -40,11 +40,7 @@ export const LocationTracker = () => {
 
   return (
     <div>
-      <h1>Real-Time Coordinates</h1>
-      <p>Latitude: {coordinates.latitude}</p>
-      <p>Longitude: {coordinates.longitude}</p>
-      <button onClick={showCoordinates}>Show me</button>
-      <p>{bom}</p>
+      
     </div>
   );
 };

@@ -5,6 +5,7 @@ export const Attendance = () => {
 
     useEffect(() => {
         const url = 'https://www.spacehub.cz/APIv01/get_stat.php'
+        
         fetch(url, {
             method: 'POST',
             headers: {'Content-type': 'application/json'},
@@ -20,13 +21,14 @@ export const Attendance = () => {
                     setScans(r.statistics)
                 }
             })
-            .catch(err => console.error('Error fetching statistics:', err))
+            .catch(err => console.error('Error fetching statistics: ', err))
     }, [])
 
     const Scan = ({ sc }) => (
         <tr className='usr-row'>
             <td className='rowNum'>{sc.IP}</td>
             <td className='rowNum'>{sc.NAME}</td>
+            <td className='rowNum'>{sc.GPS}</td>
             <td className='rowNum'>{sc.TIME}</td>
         </tr>   
     )
@@ -44,6 +46,7 @@ export const Attendance = () => {
 						<tr key={0}>
 							<th>IP</th>
 							<th>NAME</th>
+                            <th>GPS</th>
 							<th>TIME</th>
 						</tr>
 					</thead>

@@ -239,4 +239,12 @@ _____________________________________________locatoin_statistics_and_filter_____
 	border-radius: 5px;
 	color: black;
 }
-
+.basic-select {
+	margin-top: .2rem;
+	padding: .4rem 0;
+	border-radius: 6px;
+	text-align: center;
+	font-size: 1.2rem;
+	background-color: #ddf;
+	color: #002;
+}

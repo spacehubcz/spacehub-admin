@@ -3,27 +3,46 @@ import { useState, useEffect } from "react";
 export const Purchases = ({ setDetail, setStatistics }) => {
 	const [purchases, setPurchases] = useState([]);
 	const [sort, setSort] = useState(0);
+	const [locations, setLocations] = useState([])
+	const [location, setLocation] = useState(1)
 
-	const fetchData = async () => {
+	const fetchLocations =  () => {
+		fetch('https://www.spacehub.cz/APIv01/get_locations.php')
+			.then(r => r.json())
+			.then(r => {
+				console.log('locations: ', JSON.stringify(r))
+				if ('OK' === r.sts) {
+					setLocations(r.LOCATIONS);
+				}
+			})
+			.catch(err => console.error('Err get loc: , ', err));
+	}
+
+	const fetchPurchases = () => {
 		const url = 'https://www.spacehub.cz/APIv01/get_purchases.php';
 
 		fetch(url, {
 			method: 'POST',
 			headers: {'Content-Type': 'application/json'},
-			body: JSON.stringify({uid: 0})
+			body: JSON.stringify({location})
 		})
 			.then(r => r.json())
 			.then(r => {
+				console.log('purchases: ', JSON.stringify(r))
 				if ('OK' === r.sts) {
 					setPurchases(r.purchases);
 				}
 			})
 			.catch(err => console.error('This is the error: , ', err));
-	};
+	}
 
 	useEffect(() => {
-		fetchData();
-	}, []);
+		fetchLocations()
+	}, [])
+
+	useEffect(() => {
+		fetchPurchases();
+	}, [location]);
 
 	const sortPurchases = (s) => {
 		if (Math.abs(sort) === s) s = sort * -1;
@@ -54,6 +73,13 @@ export const Purchases = ({ setDetail, setStatistics }) => {
 
 	return (
 		<div className='loc-body'>
+			<select className="basic-select" onChange={(e) => setLocation(e.target.value)}>
+				{
+					locations.sort((a, b) => a.ID - b.ID).map(loc => (
+						<option key={loc.ID} value={loc.ID}>{loc.NAME + ' - ' + loc.ID}</option>
+					))
+				}
+			</select>
 			<table className='loc-tab'>
 				<thead>
 					<tr>

@@ -66,7 +66,7 @@ function App() {
 		setStatistics,
 	}
 
-	if (!pass) return <div>You think that you can crack the code, huh?</div>
+	// if (!pass) return <div>You think that you can crack the code, huh?</div>
 
 	return (
 		<div className='admin-all'>

@@ -10,11 +10,21 @@ export const Locations = ({ setDetail, setStatistics }) => {
 	const [loadData, setLoadData] = useState(0);
 
 	const fetchData = async () => {
-		fetch('https://www.spacehub.cz/APIv01/get_locations.php')
+		const url = 'https://www.spacehub.cz/APIv01/get_locations.php'
+
+		fetch(url, {
+			// method: 'POST',
+            // headers: {'Content-Type': 'application/json'},
+            // body: JSON.stringify({
+            //     lid: 1,
+			// 	from: new Date().toISOString().replace('T', ' ').slice(0, 16),
+			// 	to: new Date().toISOString().replace('T', ' ').slice(0, 16),
+            // })
+		})
 			.then(r => r.json())
 			.then(r => {
-				if (r.sts === "OK")
-				{
+				console.log('response: ', JSON.stringify(r))
+				if (r.sts === "OK") {
 					setData(r.LOCATIONS);
 					let srt = Number(localStorage.getItem('location-sort'));
 					if (!srt) srt = 3;
@@ -97,6 +107,7 @@ export const Locations = ({ setDetail, setStatistics }) => {
 							<th onClick={() => sortLocation(-5)} >Spaces {(sort===5)?'\u25B2':(sort===-5)?'\u25BC':''}</th>
 							<th onClick={() => sortLocation(-6)} >Offers {(sort===6)?'\u25B2':(sort===-6)?'\u25BC':''}</th>
 							<th onClick={() => sortLocation(-7)} >Active {(sort===7)?'\u25B2':(sort===-7)?'\u25BC':''}</th>
+							<th>Zones</th>
 							<th>Edit</th>
 							<th>Map</th>
 							<th>AS</th>

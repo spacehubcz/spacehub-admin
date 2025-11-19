@@ -248,3 +248,58 @@ _____________________________________________locatoin_statistics_and_filter_____
 	background-color: #ddf;
 	color: #002;
 }
+.park-car-input {
+	width: 100%;
+	background-color: var(--txt-color);
+	padding: 0.4rem;
+	font-size: 1rem;
+	border: 2px solid #c2c8e0;
+	border-radius: 0.4rem;
+	box-sizing: border-box;
+  }
+  
+  .park-car-input:focus {
+	outline: none;
+	border-color: #0cf;
+	box-shadow: 0 0 0 2px rgba(0, 240, 255, 0.3);
+  }
+  
+  .park-car-input:hover {
+	border-color: #0cf;
+	box-shadow: 0 0 0 2px rgba(0, 224, 224, 0.2);
+	transition: all 0.2s ease;
+	cursor: pointer;
+  }
+  .park-car-input[disabled] {
+	  opacity: .6;
+	  cursor: not-allowed;
+  }
+  .zone-btn {
+    font-size: 1rem;
+    color: #ddf;
+    display: flex;
+    justify-content: center;
+    gap: .5rem;
+    align-items: center;
+    margin-top: 1rem;
+}
+.login-cls {
+	position: absolute;
+	border: 3px solid rgb(80, 153, 255);
+	color: rgb(80, 153, 255);
+	border-radius: 50%;
+	width: 40px;
+	height: 40px;
+	font-size: 150%;
+	top: -20px;
+	right: -20px;
+	cursor: pointer;
+	text-align: center;
+	line-height: 1.7em;
+	font-weight: bold;
+}
+.login-cls:hover {
+	background-color: rgb(0, 64, 184); 
+	color: #ddf; 
+	border: 2px solid #c2c8e0;
+}

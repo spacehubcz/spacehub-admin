@@ -89,14 +89,14 @@ function App() {
 				<div className='admin-area'>
 					{area}
 				</div>
-				<div className='admin-detail'>
+				{/* <div className='admin-detail'>
 					<div className='admin-right-pan'>
 						<Statistics statist={statistics} showcitiesmap={setShowMap} />
 					</div>
 					<div className='admin-right-pan'>
 						{detail}
 					</div>
-				</div>
+				</div> */}
 					{
 						(showMap) && <MapCities />
 						// mapa funguje, ale nejdou mi dat do markru cisla

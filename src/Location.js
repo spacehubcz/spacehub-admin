@@ -1,15 +1,19 @@
 import { useState } from "react";
 import { LocUsers } from "./LocUsersDet.js"
 import { LocSpaces } from "./LocSpacesDet.js"
+import Zone from "./Zone.js";
 
-export const Location = ({loc, setSelected, setSpaceDetail}) => {
+export const Location = ({ loc, setSelected, setSpaceDetail }) => {
 	const [expLocUsers, setExpLocUsers] = useState(0);
 	const [expLocSpaces, setExpLocSpaces] = useState(0);
+	const [activeZone, setActiveZone] = useState(false)
 
-	let url = 'https://mapy.cz/zakladni?mereni-vzdalenosti&rm='+loc.URL;
+
+	const url = 'https://mapy.cz/zakladni?mereni-vzdalenosti&rm='+loc.URL;
 
 	let rqe = require("./img/detailw.png");
 	let rqm = require("./img/editmap36.png");
+
 	return (
 		<>
 			<tr className='loc-row'>
@@ -29,6 +33,7 @@ export const Location = ({loc, setSelected, setSpaceDetail}) => {
 				}
 				<td>{loc.OFFER ?? ''}</td>
 				<td>{loc.ACTIVE ?? ''}</td>
+				<td><div onClick={() => setActiveZone(k => !k)} style={{borderRadius: "50%", backgroundColor: '#ddf', height: '1rem', width: '1rem', margin: 'auto'}}></div></td>
 				<td><img className="loc-row-img" src={rqe} alt="location" onClick={() => setSelected(loc.ID)} /></td>
 				<td><a rel="noreferrer" href={url} target='_blank'><img className="loc-row-img" src={rqm} alt="map" /></a></td>
 				<td><input type='checkbox' defaultChecked={loc.ADMIN_STATUS & 1} className="loc-row-chb"></input></td>
@@ -36,6 +41,9 @@ export const Location = ({loc, setSelected, setSpaceDetail}) => {
 			</tr>
 			{(expLocUsers > 0) && <LocUsers location_id={loc.ID} />}
 			{(expLocSpaces > 0) && <LocSpaces location_id={loc.ID} selSpace={setSpaceDetail} />}
+			{
+				activeZone && <Zone setActiveZone={setActiveZone} lon={loc.GPS_LON} lat={loc.GPS_LAT} lid={loc.ID} size={300} />
+			}			
 		</>
 	);
 };
